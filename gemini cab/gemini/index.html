@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cab Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .booking-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+        }
+        h2 { color: #333; margin-bottom: 20px; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #25D366; /* WhatsApp Green */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover { background-color: #128C7E; }
+    </style>
+</head>
+<body>
+
+<div class="booking-card">
+    <h2>🚕 Cab Booking</h2>
+    <form id="bookingForm">
+        <input type="text" id="customerName" placeholder="Ungal Peyar (Name)" required>
+        <input type="tel" id="customerPhone" placeholder="Mobile Number" required>
+        <button type="submit">Confirm & Book via WhatsApp</button>
+    </form>
+</div>
+
+<script>
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // 1. Inputs vaanguroom
+    const name = document.getElementById('customerName').value;
+    const phone = document.getElementById('customerPhone').value;
+
+    // 2. Cab Owner-oda WhatsApp Number (Country code-oda irukanum - 91)
+    // Inga unga number illa cab owner number-ah maathikonga
+    const ownerWhatsAppNumber = "919578703936"; 
+
+    // 3. Message format panroom
+    const message = `🚕 *New Cab Booking!*\n\n👤 *Name:* ${name}\n📞 *Phone:* ${phone}`;
+    
+    // 4. URL encode panroom (spaces and special characters-kaaga)
+    const encodedMessage = encodeURIComponent(message);
+
+    // 5. WhatsApp API link ready panroom
+    const whatsappUrl = `https://wa.me/${ownerWhatsAppNumber}?text=${encodedMessage}`;
+
+    // 6. WhatsApp-ku redirect panroom
+    window.location.href = whatsappUrl;
+});
+</script>
+
+</body>
+</html>
